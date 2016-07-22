@@ -69,7 +69,11 @@ class LUKA_GoogleAdWords_Block_Conversion extends Mage_Core_Block_Template
     protected function _initCurrentConversion()
     {
         $action = $this->getAction();
+        //Mage::log(sprintf("%s->action=%s", __METHOD__, get_class($action)));
         $conversion = $this->getConversionCollection()->getItemByAction($action);
+        //if ($conversion) {
+            //Mage::log(sprintf("%s->conversion=%s", __METHOD__, get_class($conversion)));
+        //}
         $this->setCurrentConversion($conversion);
 
         return $this;
@@ -365,13 +369,13 @@ class LUKA_GoogleAdWords_Block_Conversion extends Mage_Core_Block_Template
         $protocol = ($this->getRequest()->isSecure() ? "https:" : "http:");
         $url = sprintf("%s//%s/%s/", $protocol, self::GOOGLE_AD_SERVICES, $this->getConversionId());
 
-        $query['label'] = $this->getConversionLabel();
-
         $value = (float)$this->getConversionValue();
         if ($value > 0) {
             $query['value'] = $value;
             $query['currency_code'] = $this->getConversionCurrency();
         }
+
+        $query['label'] = $this->getConversionLabel();
 
         $query['guid'] = 'ON';
         $query['script'] = 0;
@@ -380,6 +384,7 @@ class LUKA_GoogleAdWords_Block_Conversion extends Mage_Core_Block_Template
         $uri = Zend_Uri::factory($url);
         $uri->setQuery($query);
 
+        //Mage::log(sprintf("%s->url=%s", __METHOD__, $uri->getUri()));
         return $uri->getUri();
     }
 }
