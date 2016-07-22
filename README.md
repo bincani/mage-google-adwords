@@ -1,3 +1,31 @@
+# Description
+
+Generates google conversion tracking javascript and/or pixel
+
+## Example out put
+```html
+<!-- Google Code for DF - Sales Tracking Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = 982536369;
+var google_conversion_language = "en";
+var google_conversion_format = "3";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "SUPaCPzwxmgQsaHB1AM";
+var google_conversion_value = 0.00;
+var google_conversion_currency = "AUD";
+var google_remarketing_only = false;
+/* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="//www.googleadservices.com/pagead/conversion/982536369/?value=0.00&amp;currency_code=AUD&amp;label=SUPaCPzwxmgQsaHB1AM&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+```
+
 # LUKA Google AdWords conversion tracking
 
 This is an open source Magento module to provide google adwords conversion tracking.
