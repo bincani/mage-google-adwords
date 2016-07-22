@@ -36,6 +36,8 @@
  */
 class LUKA_GoogleAdWords_Block_Conversion extends Mage_Core_Block_Template
 {
+    const GOOGLE_AD_SERVICES = "www.googleadservices.com/pagead/conversion";
+
     /**
      * Current conversion model
      *
@@ -104,6 +106,17 @@ class LUKA_GoogleAdWords_Block_Conversion extends Mage_Core_Block_Template
     {
         $result = $this->isEnabled() && $this->getCurrentConversion();
         return $result;
+    }
+
+    /**
+     * Check if use javascript
+     *
+     * @return bool
+     */
+    public function useJavascript()
+    {
+        $useJavascript = Mage::getStoreConfigFlag('google/adwords_conversion/use_javascript');
+        return $useJavascript;
     }
 
     /**
@@ -347,18 +360,14 @@ class LUKA_GoogleAdWords_Block_Conversion extends Mage_Core_Block_Template
      */
     public function getFallbackUrl()
     {
-        $url = 'http';
+        $query = array();
 
-        if ($this->getRequest()->isSecure()) {
-            $url .= 's';
-        }
+        $protocol = ($this->getRequest()->isSecure() ? "https:" : "http:");
+        $url = sprintf("%s//%s/%s/", $protocol, self::GOOGLE_AD_SERVICES, $this->getConversionId());
 
-        $url .= '://www.googleadservices.com/pagead/conversion/'
-              . $this->getConversionId() . '/';
+        $query['label'] = $this->getConversionLabel();
 
-        $query = array('label' => $this->getConversionLabel());
         $value = (float)$this->getConversionValue();
-
         if ($value > 0) {
             $query['value'] = $value;
             $query['currency_code'] = $this->getConversionCurrency();

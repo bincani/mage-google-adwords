@@ -31,29 +31,32 @@
 ?>
 <?php if ($this->isActive()): ?>
     <!-- Google Conversion Code -->
-    <div class="google-adwords-conversion-tracker">
+    <?php if ($this->useJavascript()): ?>
+        <!-- Google Code for DF - Sales Tracking Conversion Page -->
         <script type="text/javascript">
         /* <![CDATA[ */
-        var google_conversion_id = <?php echo $this->getConversionId() ?>;
-        var google_conversion_language = '<?php echo $this->jsQuoteEscape($this->getConversionLanguage()) ?>';
-        var google_conversion_format = <?php echo $this->getConversionFormat() ?>;
-        var google_conversion_color = '<?php echo $this->jsQuoteEscape($this->getConversionColor()) ?>';
-        var google_conversion_label = '<?php echo $this->jsQuoteEscape($this->getConversionLabel()) ?>';
-        var google_remarketing_only = <?php echo $this->getConversionRemarketingOnly() ? 'true' : 'false' ?>;
-
-        <?php $_value = (float)$this->getConversionValue() ?>
-        <?php if ($_value > 0): ?>
-        var google_conversion_value = <?php echo $_value ?>;
-        var google_conversion_currency = '<?php echo $this->getConversionCurrency() ?>';
-        <?php endif ?>
-        /* ]]> */
+            var google_conversion_id = <?php echo $this->getConversionId() ?>;
+            var google_conversion_language = '<?php echo $this->jsQuoteEscape($this->getConversionLanguage()) ?>';
+            var google_conversion_format = <?php echo $this->getConversionFormat() ?>;
+            var google_conversion_color = '<?php echo $this->jsQuoteEscape($this->getConversionColor()) ?>';
+            var google_conversion_label = '<?php echo $this->jsQuoteEscape($this->getConversionLabel()) ?>';
+            <?php $_value = (float)$this->getConversionValue() ?>
+            <?php if ($_value > 0): ?>
+                var google_conversion_value = <?php echo $_value ?>;
+                var google_conversion_currency = '<?php echo $this->getConversionCurrency() ?>';
+            <?php endif ?>
+            var google_remarketing_only = <?php echo $this->getConversionRemarketingOnly() ? 'true' : 'false' ?>;            
+            /* ]]> */
         </script>
-        <script type="text/javascript" src="<?php echo $this->getConversionScriptUrl() ?>"></script>
-
+        <script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js"></script>                  
         <noscript>
             <div style="display:inline">
                 <img height="1" width="1" style="border-style:none" alt="" src="<?php echo $this->getFallbackUrl() ?>" />
             </div>
         </noscript>
-    </div>
-<?php endif ?>
+    <?php else: ?>
+        <div style="display:inline">
+            <img height="1" width="1" style="border-style:none" alt="" src="<?php echo $this->getFallbackUrl() ?>" />
+        </div>
+    <?php endif; ?>
+<?php endif; ?>
