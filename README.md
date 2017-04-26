@@ -26,6 +26,10 @@ var google_remarketing_only = false;
 </noscript>
 ```
 
+# Documentation
+
+https://support.google.com/adwords/answer/6095947?hl=en&authuser=0
+
 # LUKA Google AdWords conversion tracking
 
 This is an open source Magento module to provide google adwords conversion tracking.
